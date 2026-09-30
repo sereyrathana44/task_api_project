@@ -1,0 +1,82 @@
+{
+  "info": {
+    "name": "Task API (Django REST Framework)",
+    "description": "Collection សម្រាប់តេស្ត Task API។ កែប្រែ base_url variable ទៅជា Cloud URL ពិតរបស់អ្នកបន្ទាប់ពី deploy។",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/"
+      }
+    },
+    {
+      "name": "List Tasks",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/tasks/"
+      }
+    },
+    {
+      "name": "Filter Tasks by Priority",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/tasks/?priority=HIGH"
+      }
+    },
+    {
+      "name": "Search Tasks",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/tasks/?search=deploy"
+      }
+    },
+    {
+      "name": "Retrieve Single Task",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/tasks/1/"
+      }
+    },
+    {
+      "name": "Create Task (requires login)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Deploy API to Render\",\n  \"description\": \"Follow the deployment guide in README.md\",\n  \"priority\": \"HIGH\",\n  \"due_date\": \"2026-09-30\"\n}"
+        },
+        "url": "{{base_url}}/api/tasks/"
+      }
+    },
+    {
+      "name": "Update Task - Partial (requires login)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"is_completed\": true\n}"
+        },
+        "url": "{{base_url}}/api/tasks/1/"
+      }
+    },
+    {
+      "name": "Delete Task (requires login)",
+      "request": {
+        "method": "DELETE",
+        "url": "{{base_url}}/api/tasks/1/"
+      }
+    }
+  ]
+}

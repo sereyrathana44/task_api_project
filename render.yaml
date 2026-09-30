@@ -1,0 +1,28 @@
+databases:
+  - name: task-api-db
+    plan: free
+    databaseName: task_api
+    user: task_api_user
+
+services:
+  - type: web
+    name: task-api
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn task_api.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.12.4"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: task-api-db
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: WEB_CONCURRENCY
+        value: "4"
